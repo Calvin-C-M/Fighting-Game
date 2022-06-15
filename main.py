@@ -1,5 +1,6 @@
 import pygame
 import Color
+import Maps
 from Player import Player
 from Platform import Platform
 
@@ -14,12 +15,12 @@ GRAV=9
 def update_game_window(
     keys,
     player: Player,
-    platforms: list()
+    mapLayout: list()
 ) :
     WIN.fill(Color.BLACK)
 
-    player.update(WIN,keys,GRAV,platforms)
-    for platform in platforms :
+    player.update(WIN,keys,GRAV,mapLayout)
+    for platform in mapLayout :
         platform.update(WIN)
 
     pygame.display.flip()
@@ -33,10 +34,7 @@ def main() :
 
     player=Player(player1SpawnPoint[0],player1SpawnPoint[1])
 
-    platforms=[
-        Platform(50,500,1000,20),
-        Platform(50,450,400,20),
-    ]
+    mapLayout=Maps.original_map()
 
     while(gameRunning) :
         clock.tick(60)
@@ -46,6 +44,6 @@ def main() :
 
         keys=pygame.key.get_pressed()
         
-        update_game_window(keys,player,platforms)
+        update_game_window(keys,player,mapLayout)
 
 main()
